@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Site Resource Audit - __URL__</title>
+    <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; script-src 'self' 'unsafe-inline' https://fonts.googleapis.com">
+    <meta http-equiv="X-Content-Security-Policy" content="default-src * 'unsafe-inline'; script-src 'self' 'unsafe-inline' https://fonts.googleapis.com">
+  </head>
+  <body>
+    <header>
+      <h1>Site Resource Audit</h1>
+      <p>Prepared for __URL__ on __TIME__</p>
+      <p>Total Weight of Resources: __WEIGHT__</p>
+    </header>
+    <div class="triggers">
+      <div class="trigger active" data-trigger="data-resources">Resources</div>
+      <div class="trigger" data-trigger="data-images">Images</div>
+    </div>
+    <div class="table" data-resources>
+      __CONTENT__
+    </div>
+    <data class="hidden" data-images>
+      __IMAGES__
+    </data>
+    <script type="text/javascript">
+      const cache = {};
+
+      const setTriggerClasses = (triggerClicked) => {
+        const targetSelectors = document.querySelectorAll(`[data-trigger]`);
+        targetSelectors.forEach((trigger) => {
+          if (trigger === triggerClicked) {
+            trigger.classList.add('active');
+          } else {
+            trigger.classList.remove('active');
+          }
+        });
+      };
+
+      const clickTab = (event) => {
+        const targetSelector = document.querySelector(`[${event.target.getAttribute('data-trigger')}]`);
+        setTriggerClasses(event.target);
+        Object.values(cache).forEach((element) => {
+          if (element === targetSelector) {
+            element.classList.remove('hidden');
+          } else {
+            element.classList.add('hidden');
+          }
+        });
+      };
+
+      setTimeout(() => {
+        cache.resources = document.querySelector('[data-resources]');
+        cache.images = document.querySelector('[data-images]');
+
+        const triggers = document.querySelectorAll('[data-trigger]');
+        triggers.forEach((trigger) => {
+          trigger.addEventListener('click', clickTab);
+        });
+      }, 1000);
+    </script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      .hidden {
+        display: none;
+      }
+      .triggers {
+        margin: 80px 0;
+        display: flex;
+      }
+      .trigger {
+        padding: 20px;
+        flex-grow: 1;
+        text-align: center;
+        background-color: #F8F8F8;
+        color: #333;
+        cursor: pointer;
+        transition: background-color .3s, color.3s;
+      }
+      .trigger.active {
+        background-color: #333;
+        color: #F8F8F8;
+      }
+      .resource {
+        padding-left: 80px;
+      }
+      .resource__grid {
+        width: 900px;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+      }
+      .resource__name {
+        margin-bottom: 0;
+        grid-column: 1 / span 4;
+        white-space: nowrap;
+      }
+      .image-entry,
+      details {
+        margin-left: 20px
+      }
+      details + details {
+        margin-top: 60px
+      }
+      header {
+        margin-top: 60px;
+        text-align: center;
+      }
+      p {
+        margin: 10px 0;
+      }
+      summary::-webkit-details-marker {
+        display: none;
+      }
+    </style>
+  </body>
+</html>
