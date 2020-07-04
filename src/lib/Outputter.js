@@ -47,12 +47,18 @@ const buildResource = (resource, host) => {
 const buildImageMarkup = () => {
   const imageData = Cookies.getData(Cookies.storageSettings.imageCookie);
   return imageData.reduce((markup, image) => {
+    const startIndex = Math.max(image.url.lastIndexOf('/') + 1, 0);
     const endIndex = image.url.includes('?') ? image.url.indexOf('?') : image.url.length;
     return `${markup}<div class="image-entry">
-  <a href="${image.url}"><h2 class="image-entry__name">${image.url.substring(0, endIndex)}</h2></a>
-  <p>Natural Size / Size Ratio: ${Math.round(image.widthRatio * 100)}%</p>
-  <p>Image Width: ${image.naturalWidth}px</p>
-  <p>Image Width Space: ${image.width}px</p>
+  <div class="image-entry__image-wrapper">
+    <img class="image-entry__image" src="${image.url}"/>
+  </div>
+  <div>
+    <a href="${image.url}"><h2 class="image-entry__name">${image.url.substring(startIndex, endIndex)}</h2></a>
+    <p>Natural Size / Size Ratio: ${Math.round(image.widthRatio * 100)}%</p>
+    <p>Image Width: ${image.naturalWidth}px</p>
+    <p>Image Width Space: ${image.width}px</p>
+  </div>
 </div>`;
   }, '');
 };

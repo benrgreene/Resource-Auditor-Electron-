@@ -24,7 +24,7 @@ const setup = () => {
 
 setup();
 
-const test = window.cron.schedule('59 * * * *', () => {
-  console.log('test');
-});
-console.log(test);
+// const test = window.cron.schedule('59 * * * *', () => {
+//   console.log('test');
+// });
+// console.log(test);

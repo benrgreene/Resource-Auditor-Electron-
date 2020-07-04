@@ -96,6 +96,24 @@
         grid-column: 1 / span 4;
         white-space: nowrap;
       }
+      .image-entry {
+        display: flex;
+        align-items: center;
+      }
+      .image-entry + .image-entry {
+        margin-top: 20px;
+      }
+      .image-entry__image-wrapper {
+        margin-right: 20px;
+        width: 200px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .image-entry__image {
+        display: block;
+        max-width: 200px;
+      }
       .image-entry,
       details {
         margin-left: 20px

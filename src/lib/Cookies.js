@@ -11,7 +11,6 @@ const storageSettings = {
 const saveCookie = (name, data) => {
   window.fileSystem.fs.writeFileSync(`.resource-audit-${name}.txt`, data);
   const testData = window.fileSystem.fs.readFileSync(`.resource-audit-${name}.txt`, 'utf8');
-  console.log(testData);
 };
 
 /**
